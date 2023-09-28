@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+Future<http.Response> fetchFeeds() async {
+  final response = await http.get(Uri.parse('http://localhost:8080/feeds'));
+  print(response);
+  return response;
+}
 
 void main() {
+  fetchFeeds();
   runApp(const MyApp());
 }
 
