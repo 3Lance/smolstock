@@ -9,15 +9,14 @@ CORS(app)
 
 @app.route("/forecast")
 def index():
-    stock = yf.Ticker('AMZN')
-    hist = stock.history() #dati dell'ultimo anno
+    tick = request.args.get("q")
 
-    json_data = hist.reset_index().to_json(orient='records', date_format='iso')
-    json_data = json.loads(json_data)
-    df = pd.DataFrame(json_data)
-    df=df[['Date', 'Close']]
+    if not tick:
+        return jsonify({"error": "no stock provided"})
 
-    return df.to_json()
+    stock = yf.Ticker(tick)
+    hist = stock.history(period="1mo")
+    return hist.to_json()
 
 if __name__ == "__main__":
     app.run(debug=True, port=1235)
