@@ -1,8 +1,10 @@
+# TODO(toma): aggiungere endpoint per generare il grafico
+
+
 import yfinance as yf
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-import json
-import pandas as pd
+
 
 app = Flask(__name__)
 CORS(app)
