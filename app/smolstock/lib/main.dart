@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'chatbot.dart'; // Import the ChatBot screen
-import 'home.dart'; // Import the Home screen
-import 'news.dart'; // Import the News screen
-import 'profile.dart'; // Import the Profile screen
-import 'stocks.dart'; // Import the Stocks screen
+import 'chatbot.dart';
+import 'home.dart';
+import 'news.dart';
+import 'profile.dart';
+import 'stocks.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,11 +19,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
+
   final List<Widget> _pages = [
     HomeScreen(),
-    StocksScreen(),
+    StocksWidget(),
     ChatBotScreen(),
-    NewsScreen(),
+    NewsWidget(),
     ProfileScreen(),
   ];
 
@@ -39,16 +40,11 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
   final List<IconData> pageIcons = [
     Icons.feed,
-    Icons.stacked_line_chart,
+    Icons.leaderboard,
     Icons.quiz,
     Icons.newspaper,
     Icons.person,
   ];
-
-  // Define your color variables here
-  final Color primaryColor = const Color(0xFF0F2140); // Primary color
-  final Color secondaryColor = const Color(0xFF749CAC); // Secondary color
-  final Color thirdColor = const Color(0xFFDCF5FD); // Third color
 
   @override
   void initState() {
@@ -70,42 +66,44 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     return MaterialApp(
       title: '',
       theme: ThemeData(
-        // Your theme configuration
         useMaterial3: true,
+
+        colorScheme: ColorScheme(
+          brightness: Brightness.light,
+          primary: Colors.lightBlue,
+          onPrimary: Colors.white,
+          secondary: Colors.white,
+          onSecondary: Colors.white,
+          error: Colors.white,
+          onError: Colors.white,
+          background: Colors.white,
+          onBackground: Colors.white,
+          surface: Colors.white,
+          onSurface: Colors.grey,
+        ),
       ),
+
       home: DefaultTabController(
         length: _pages.length,
         child: Scaffold(
           body: TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
             controller: _tabController,
             children: _pages,
           ),
           bottomNavigationBar: Container(
-            height: 64.0, // Adjust the height as needed
-            decoration: const BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  color: Color(0xFF0F2140), // Set a transparent underline
-                  width: 2, // Set the underline thickness to 0
-                ),
-              ),
-            ),
+            height: 64.0,
             child: TabBar(
               controller: _tabController,
-              indicatorColor: secondaryColor, // Transparent underline
+              indicatorColor: Theme.of(context).colorScheme.background,
               tabs: [
                 for (var i = 0; i < _pages.length; i++)
                   Tab(
                     icon: Icon(
                       pageIcons[i],
-                      color: i == _currentIndex ? secondaryColor : primaryColor,
                     ),
                     child: Text(
                       pageTitles[i],
-                      style: TextStyle(
-                        color:
-                            i == _currentIndex ? secondaryColor : primaryColor,
-                      ),
                     ),
                   ),
               ],
