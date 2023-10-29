@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'chatbot.dart';
 import 'home.dart';
+import 'login.dart';
 import 'news.dart';
 import 'profile.dart';
 import 'stocks.dart';
@@ -64,6 +65,15 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'LoginApp',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoginPage(),
+    );
+  }
+    /*
+    return MaterialApp(
       title: '',
       theme: ThemeData(
         useMaterial3: true,
@@ -113,4 +123,5 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       ),
     );
   }
+  */
 }
