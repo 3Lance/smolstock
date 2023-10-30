@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:smolstock/register.dart';
 
 
 void main() => runApp(MyApp());
@@ -69,6 +70,10 @@ class _LoginPageState extends State<LoginPage> {
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         // TODO: aprire la pagina di creazione account
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => RegiserPage())
+                        );
                       },
                   ),
                 ]
