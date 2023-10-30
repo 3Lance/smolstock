@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 16.0),
             RichText(
               text:  TextSpan(
-                text: 'Already have an account? ',
+                text: "Don't have an account? ",
                 style: const TextStyle(color: Colors.blue),
                 children: <TextSpan> [
                   TextSpan(
