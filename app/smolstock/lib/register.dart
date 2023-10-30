@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -87,6 +88,28 @@ class _RegistrationPageState extends State<RegiserPage> {
                   });
                 }
               },
+            ),
+            SizedBox(height: 16),
+            RichText(
+              text:  TextSpan(
+                  text: 'Already have an account? ',
+                  style: const TextStyle(color: Colors.blue),
+                  children: <TextSpan> [
+                    TextSpan(
+                      text: 'Login',
+                      style: const TextStyle(
+                        color: Colors.blue,
+                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          // TODO: aprire la pagina di creazione account
+                          Navigator.pop(context);
+                        },
+                    ),
+                  ]
+              ),
             ),
             SizedBox(height: 16),
             ElevatedButton(
