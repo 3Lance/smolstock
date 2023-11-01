@@ -1,3 +1,4 @@
+import 'package:get_storage/get_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:smolstock/register.dart';
@@ -91,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                 RegistrationResult credentialValid = await AuthHelper.verifyCredentials(username, password);
 
                 if(credentialValid.success) {
-                  // TODO: inizializzare la sessione
+                  GetStorage('login').write('logged', true);
                   Navigator
                       .of(context)
                       .pushReplacement(
