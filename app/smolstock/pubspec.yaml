@@ -41,6 +41,9 @@ dependencies:
   fl_chart: ^0.64.0
   path_provider: ^2.1.1
   flutter_secure_storage: ^9.0.0
+  get: ^4.6.6
+  get_storage: ^2.1.1
+
 
 
 dev_dependencies:
