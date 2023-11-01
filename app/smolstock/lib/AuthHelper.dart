@@ -2,6 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
+class RegistrationResult {
+  final bool success;
+  final String message;
+
+  RegistrationResult(this.success, this.message);
+}
+
 class AuthHelper {
   static Future<File> get _localFile async {
     final directory = await getApplicationDocumentsDirectory();
@@ -21,11 +28,13 @@ class AuthHelper {
     }
   }
 
-  static Future<File> registerUser(String name, String surname, String email, String password, DateTime birthDate) async {
+  static Future<RegistrationResult> registerUser(String name, String surname, String email, String password, DateTime birthDate) async {
     final file = await _localFile;
     Map<String, dynamic> users = (await readUsers()).cast<String, dynamic>();
 
-    if(users.containsKey(email)) throw Exception('user $email already registered');
+    if(users.containsKey(email)) {
+      return RegistrationResult(false, 'user $email already exists');
+    }
 
     Map<String, dynamic> userInfo = {
       'name': name,
@@ -36,12 +45,13 @@ class AuthHelper {
     };
 
     users[email] = userInfo;
-    return file.writeAsString(json.encode(users));
+    await file.writeAsString(json.encode(users));
+    return RegistrationResult(true, 'user $email registered successfully');
   }
 
-  static Future<bool> verifyCredentials(String email, String password) async {
+  static Future<RegistrationResult> verifyCredentials(String email, String password) async {
     Map<String, dynamic> users = await readUsers();
-
-    return users.containsKey(email) && users[email]['password'] == password;
+    bool success = users.containsKey(email) && users[email]['password'] == password;
+    return RegistrationResult(success, success ? 'user $email logged in successfully' : 'invalid credentials');
   }
 }
