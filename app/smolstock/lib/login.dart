@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:smolstock/register.dart';
-
+import 'package:smolstock/AuthHelper.dart';
+import 'package:smolstock/home.dart';
 
 void main() => runApp(MyApp());
 
@@ -87,18 +88,23 @@ class _LoginPageState extends State<LoginPage> {
                 String username = _usernameController.text;
                 String password = _passwordController.text;
 
-                // TODO: collegare la logica di controllo credenziali (AuthHelper)
+                RegistrationResult credentialValid = await AuthHelper.verifyCredentials(username, password);
 
-                if (username.isEmpty || password.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Please insert your credentials.')
-                    ),
-                  );
-                } else {
+                if(credentialValid.success) {
+                  // TODO: inizializzare la sessione
+                  Navigator
+                      .of(context)
+                      .pushReplacement(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => HomeScreen(),
+                        )
+                      );
+                }
+                else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Welcome $username!')
+                      content: Text(credentialValid.message),
+                      backgroundColor: Colors.red,
                     ),
                   );
                 }
