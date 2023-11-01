@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:smolstock/login.dart';
+import 'package:smolstock/AuthHelper.dart';
 
 void main() => runApp(MyApp());
 
@@ -105,7 +106,6 @@ class _RegistrationPageState extends State<RegiserPage> {
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          // TODO: aprire la pagina di creazione account
                           Navigator
                               .of(context)
                               .pushReplacement(
@@ -120,11 +120,40 @@ class _RegistrationPageState extends State<RegiserPage> {
             ),
             SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                // Qui potresti chiamare la tua funzione di registrazione
-                print('Registering user...');
+              onPressed: () async {
+                RegistrationResult result = await AuthHelper.registerUser(
+                  _nameController.text,
+                  _surnameController.text,
+                  _emailController.text,
+                  _passwordController.text,
+                  _selectedDate,
+                );
+                if(!result.success) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(result.message),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+                else {
+                  await Future.delayed(const Duration(seconds: 1));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(result.message),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+                  Navigator
+                      .of(context)
+                      .pushReplacement(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => LoginPage(),
+                    ),
+                  );
+                }
               },
-              child: Text('Register'),
+              child: const Text('Register'),
             ),
           ],
         ),
