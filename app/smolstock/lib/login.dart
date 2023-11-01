@@ -70,9 +70,12 @@ class _LoginPageState extends State<LoginPage> {
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         // TODO: aprire la pagina di creazione account
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => RegiserPage())
+                        Navigator
+                            .of(context)
+                            .pushReplacement(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) => RegiserPage(),
+                              ),
                         );
                       },
                   ),
