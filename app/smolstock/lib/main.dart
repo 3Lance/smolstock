@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'chatbot.dart';
 import 'home.dart';
+import 'login.dart';
 import 'news.dart';
 import 'profile.dart';
 import 'stocks.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init('login');
+  GetStorage('login').write('logged', false);
   runApp(const MyApp());
 }
 
@@ -62,55 +66,65 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '',
-      theme: ThemeData(
-        useMaterial3: true,
+  Widget build(BuildContext context){
+  // TODO: spostare questo blocco di codice in un modulo a parte
+    if(GetStorage('login').read('logged')) {
+      return MaterialApp(
+        title: '',
+        theme: ThemeData(
+          useMaterial3: true,
 
-        colorScheme: ColorScheme(
-          brightness: Brightness.light,
-          primary: Colors.lightBlue,
-          onPrimary: Colors.white,
-          secondary: Colors.white,
-          onSecondary: Colors.white,
-          error: Colors.white,
-          onError: Colors.white,
-          background: Colors.white,
-          onBackground: Colors.white,
-          surface: Colors.white,
-          onSurface: Colors.grey,
-        ),
-      ),
-
-      home: DefaultTabController(
-        length: _pages.length,
-        child: Scaffold(
-          body: TabBarView(
-            physics: const NeverScrollableScrollPhysics(),
-            controller: _tabController,
-            children: _pages,
+          colorScheme: ColorScheme(
+            brightness: Brightness.light,
+            primary: Colors.lightBlue,
+            onPrimary: Colors.white,
+            secondary: Colors.white,
+            onSecondary: Colors.white,
+            error: Colors.white,
+            onError: Colors.white,
+            background: Colors.white,
+            onBackground: Colors.white,
+            surface: Colors.white,
+            onSurface: Colors.grey,
           ),
-          bottomNavigationBar: Container(
-            height: 64.0,
-            child: TabBar(
+        ),
+
+        home: DefaultTabController(
+          length: _pages.length,
+          child: Scaffold(
+            body: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
               controller: _tabController,
-              indicatorColor: Theme.of(context).colorScheme.background,
-              tabs: [
-                for (var i = 0; i < _pages.length; i++)
-                  Tab(
-                    icon: Icon(
-                      pageIcons[i],
+              children: _pages,
+            ),
+            bottomNavigationBar: Container(
+              height: 64.0,
+              child: TabBar(
+                controller: _tabController,
+                indicatorColor: Theme.of(context).colorScheme.background,
+                tabs: [
+                  for (var i = 0; i < _pages.length; i++)
+                    Tab(
+                      icon: Icon(
+                        pageIcons[i],
+                      ),
+                      child: Text(
+                        pageTitles[i],
+                      ),
                     ),
-                    child: Text(
-                      pageTitles[i],
-                    ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
+      );
+    }
+    return MaterialApp(
+      title: 'LoginApp',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: LoginPage(),
     );
   }
 }
