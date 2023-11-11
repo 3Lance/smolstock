@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrationResult {
   final bool success;
@@ -10,6 +11,7 @@ class RegistrationResult {
 }
 
 class AuthHelper {
+  static final SharedPreferences prefs = SharedPreferences.getInstance() as SharedPreferences;
   static Future<File> get _localFile async {
     final directory = await getApplicationDocumentsDirectory();
     // default path is /data/user/0/com.example.smolstock/app_flutter in the device file system
@@ -46,6 +48,7 @@ class AuthHelper {
 
     users[email] = userInfo;
     await file.writeAsString(json.encode(users));
+    await prefs.setBool('isLoggedIn', true);
     return RegistrationResult(true, 'user $email registered successfully');
   }
 
@@ -53,5 +56,9 @@ class AuthHelper {
     Map<String, dynamic> users = await readUsers();
     bool success = users.containsKey(email) && users[email]['password'] == password;
     return RegistrationResult(success, success ? 'user $email logged in successfully' : 'invalid credentials');
+  }
+
+  static Future<bool> isLoggedIn() async{
+    return prefs.getBool('isLoggedIn') ?? false;
   }
 }
