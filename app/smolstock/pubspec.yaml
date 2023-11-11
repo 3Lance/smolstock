@@ -43,6 +43,8 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   get: ^4.6.6
   get_storage: ^2.1.1
+  provider: ^6.1.1
+  shared_preferences: ^2.2.2
 
 
 
