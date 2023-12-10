@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  web:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: >
+      sh -c "./entrypoint.sh &&
+             python3 manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.docker.env
+    depends_on:
+      - db
+
+  db:
+    restart: always
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+
+  redis:
+    restart: always
+    image: redis:7-alpine
+
+  celery_worker:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: celery -A smolstock worker -l info
+    env_file:
+      - ./.docker.env
+    depends_on:
+      - db
+      - web
+      - redis
+
+  celery_beat:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: celery -A smolstock.celery beat -l info
+    env_file:
+      - ./.docker.env
+    depends_on:
+      - db
+      - web
+      - redis
+
+  websocket:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: python3 websocket.py
+    ports:
+      - "8001:8001"
+    env_file:
+      - ./.docker.env
+    depends_on:
+      - db
+      - web
+      - redis
+      - celery_worker
+      - celery_beat
