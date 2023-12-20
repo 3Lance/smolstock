@@ -1,0 +1,123 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:smolstock/Models/coin_model.dart';
+import 'package:smolstock/Routing/route_names.dart';
+import 'package:smolstock/Screens/Utilities/Widgets/utilities.dart';
+import 'package:smolstock/Screens/Utilities/static_classes.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+class InvestCoinTileBuilder extends StatelessWidget {
+  final Coin coin;
+  const InvestCoinTileBuilder({super.key, required this.coin});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32),
+      child: GestureDetector(
+        onTap: () {
+          App.currentCoin = coin.shortForm;
+          context.goNamed(RouteNames.coinPage,
+              pathParameters: {'shortName': coin.shortForm});
+        },
+        child: SizedBox(
+          child: Container(
+            height: 84,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              color: Palette.secondaryBlackColor,
+              borderRadius: BorderRadius.all(
+                Radius.circular(20),
+              ),
+            ),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  radius: 32,
+                  backgroundImage: CachedNetworkImageProvider(
+                    coin.image,
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  coin.fullName,
+                                  style: TextStyle(
+                                    fontSize: coin.fullName.length < 20
+                                        ? coin.fullName.length < 15
+                                            ? 18
+                                            : 12
+                                        : 10,
+                                    color: Palette.secondaryOffWhiteColor,
+                                    fontFamily: "Poppins",
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                Text(
+                                  coin.shortForm,
+                                  style: labelMedium(),
+                                )
+                              ],
+                            ),
+                          ),
+                          Text(
+                            "₹ ${coin.price.toStringAsFixed(2)}",
+                            style: bodyLarge(),
+                          )
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                coin.changePercent! > 0
+                                    ? const Icon(Icons.arrow_upward_rounded,
+                                        color: Palette.secondaryCorrectColor)
+                                    : const Icon(Icons.arrow_downward_rounded,
+                                        color: Palette.secondaryErrorColor),
+                                Text(
+                                  "${coin.changePercent!.toStringAsFixed(2)} %",
+                                  style: bodyMedium(
+                                      fontColor: coin.changePercent! > 0
+                                          ? Palette.secondaryCorrectColor
+                                          : Palette.secondaryErrorColor),
+                                ),
+                              ],
+                            ),
+                            Row(children: [
+                              Text(
+                                "View More",
+                                style: bodySmall(),
+                              ),
+                              const Icon(
+                                Icons.chevron_right_sharp,
+                                color: Colors.white,
+                              )
+                            ])
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
