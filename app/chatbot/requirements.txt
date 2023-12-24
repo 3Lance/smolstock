@@ -1,3 +1,4 @@
+chainlit
 langchain
 llama-cpp-python
 openai
