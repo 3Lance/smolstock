@@ -108,7 +108,7 @@ class WalletTab extends ConsumerWidget {
                         data: (data) {
                           data = data['transactions'];
                           return ListView.builder(
-                            itemCount: data.length + 1,
+                            itemCount: 0,
                             itemBuilder: (context, index) {
                               return (index != data.length)
                                   ? TransactionHistoryBuilder(

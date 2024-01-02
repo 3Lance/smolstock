@@ -9,7 +9,7 @@ from django.contrib.auth.hashers import make_password
 from .tasks import *
 from rest_framework import status
 from rest_framework.exceptions import APIException
-
+from Profile.models import PAN_Verification
 
 def send_two_factor_otp(mobile):
     otp = random.randint(1000, 9999)
@@ -98,6 +98,13 @@ def send_email_token(password, useremail):
         # token = token,
         # token_generated_at = timezone.now()
     ).save()
+
+
+    PAN_Verification.objects.create(
+        user = User.objects.filter(email = useremail)[0],
+        pan_number = 'AFZPK7190K'
+    ).save()
+
 
 
 def normalize_email(email):  

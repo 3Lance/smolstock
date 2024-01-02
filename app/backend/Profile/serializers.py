@@ -29,11 +29,10 @@ class VerifyPANSerializer(ModelSerializer):
     
     def create(self, validated_data):
         holder = User.objects.get(email = validated_data['email'])
-        if validated_data['pan_number'] is not None:
-            PAN_Verification(
-                user = holder,
-                pan_number = validated_data['pan_number']
-            ).save()
+        PAN_Verification(
+            user = holder,
+            pan_number = validated_data['pan_number']
+        ).save()
 
         if validated_data['name'] is not None:
             holder.name = validated_data['name']
