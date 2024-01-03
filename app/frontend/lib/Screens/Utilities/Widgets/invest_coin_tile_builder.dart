@@ -71,7 +71,7 @@ class InvestCoinTileBuilder extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "₹ ${coin.price.toStringAsFixed(2)}",
+                            "€ ${coin.price.toStringAsFixed(2)}",
                             style: bodyLarge(),
                           )
                         ],

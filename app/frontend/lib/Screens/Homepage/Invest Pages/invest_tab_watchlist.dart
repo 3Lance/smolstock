@@ -110,7 +110,7 @@ class InvestTabWatchlist extends ConsumerWidget {
                                       ),
                                       const SizedBox(height: 20),
                                       Text(
-                                        "Current Price     ₹${data[App.watchlistIndex]['Price'].toStringAsFixed(4)}",
+                                        "Current Price     €${data[App.watchlistIndex]['Price'].toStringAsFixed(4)}",
                                         style: bodyLarge(),
                                       ),
                                       const SizedBox(height: 30),
@@ -175,7 +175,7 @@ class InvestTabWatchlist extends ConsumerWidget {
                                       ),
                                       const SizedBox(height: 20),
                                       Text(
-                                        "Total Cost   ₹${(data[App.watchlistIndex]['Price'] * (ref.watch(watchlistCoinControllerProvider) ?? 1)).toStringAsFixed(4)}",
+                                        "Total Cost   €${(data[App.watchlistIndex]['Price'] * (ref.watch(watchlistCoinControllerProvider) ?? 1)).toStringAsFixed(4)}",
                                         style: bodyLarge(),
                                       ),
                                       const SizedBox(height: 20),

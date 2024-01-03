@@ -115,7 +115,7 @@ class InvestTabMyHoldings extends ConsumerWidget {
                                       ),
                                       const SizedBox(height: 20),
                                       Text(
-                                        "Current Price     ₹${data[App.holdingIndex]['Price'].toStringAsFixed(4)}",
+                                        "Current Price     €${data[App.holdingIndex]['Price'].toStringAsFixed(4)}",
                                         style: bodyLarge(),
                                       ),
                                       const SizedBox(height: 30),
@@ -176,7 +176,7 @@ class InvestTabMyHoldings extends ConsumerWidget {
                                       ),
                                       const SizedBox(height: 20),
                                       Text(
-                                        "Total Cost   ₹${(data[App.holdingIndex]['Price'] * (ref.watch(holdingTabCoinControllerProvider) ?? 1)).toStringAsFixed(4)}",
+                                        "Total Cost   €${(data[App.holdingIndex]['Price'] * (ref.watch(holdingTabCoinControllerProvider) ?? 1)).toStringAsFixed(4)}",
                                         style: bodyLarge(),
                                       ),
                                       const SizedBox(height: 20),

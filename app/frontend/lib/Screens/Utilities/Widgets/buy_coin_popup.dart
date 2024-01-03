@@ -53,7 +53,7 @@ class BuyCoinPopup extends ConsumerWidget {
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      "Current Price     ₹${data['Price'].toStringAsFixed(4)}",
+                      "Current Price     €${data['Price'].toStringAsFixed(4)}",
                       style: bodyLarge(),
                     ),
                     const SizedBox(height: 30),
