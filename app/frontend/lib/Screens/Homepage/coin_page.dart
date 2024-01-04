@@ -166,7 +166,7 @@ class _CoinPageState extends ConsumerState<CoinPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text("Prices", style: titleMedium()),
-                              Text("₹ ${data['Price'].toStringAsFixed(2)}",
+                              Text("€ ${data['Price'].toStringAsFixed(2)}",
                                   style: bodyLarge()),
                               Row(
                                 children: [

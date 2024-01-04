@@ -60,7 +60,7 @@ Widget holdingCoinTileBuilder(Coin coin, int index) {
                         ),
                       ),
                       Text(
-                        "₹ ${coin.price.toStringAsFixed(2)}",
+                        "€ ${coin.price.toStringAsFixed(2)}",
                         style: bodyLarge(),
                       )
                     ],

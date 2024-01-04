@@ -54,7 +54,7 @@ class TransactionHistoryBuilder extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "₹ $price",
+                    "€ $price",
                     style:
                         bodyMedium(fontColor: Palette.secondaryOffWhiteColor),
                   ),

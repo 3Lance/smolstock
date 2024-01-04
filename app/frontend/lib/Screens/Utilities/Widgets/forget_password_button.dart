@@ -19,7 +19,7 @@ class ForgetPasswordButton extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: Text(
             "Forget Password?",
-            style: labelLarge(fontColor: Palette.primaryColor),
+            style: labelLarge(fontColor: Palette.secondaryBlackColor),
           ),
         ),
       ),

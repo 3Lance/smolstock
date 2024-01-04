@@ -83,25 +83,25 @@ class VerifyOTPEmailSerializer(Serializer):
 
 class ResetPasswordSerializer(Serializer):
     email = EmailField(write_only = True)
-    otp = IntegerField(write_only = True)
+    # otp = IntegerField(write_only = True)
     password = CharField()
 
     def validate(self, data):
         if not self.instance.exists():
             raise CustomError('User not registered')
-        self.instance = self.instance[0]
-        otpresponse = validateOTP(self.instance, data['otp'])
-        if not otpresponse == 'OK' :
-            raise CustomError('unauthorised access')
-        passresponse = validatePASS(data['password'], self.instance.email)
-        if not passresponse == 'OK':
-            raise CustomError(passresponse)
-        validateOTP(self.instance, data['otp'], resetpass = True)
+        # self.instance = self.instance[0]
+        # otpresponse = validateOTP(self.instance, data['otp'])
+        # if not otpresponse == 'OK' :
+        #     raise CustomError('unauthorised access')
+        # passresponse = validatePASS(data['password'], self.instance.email)
+        # if not passresponse == 'OK':
+        #     raise CustomError(passresponse)
+        # validateOTP(self.instance, data['otp'], resetpass = True)
         return data
 
     def update(self, instance, validated_data):
         instance.password = make_password(validated_data['password'])
-        instance.save()
+        # instance.save()
         return instance
 
 
