@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smolstock/Screens/Utilities/Riverpod/riverpod_variables.dart';
 import 'package:smolstock/Screens/Utilities/Widgets/utilities.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeBottomNavBar extends ConsumerWidget {
   const HomeBottomNavBar({super.key});
@@ -89,7 +90,8 @@ List<Widget> bottomnavbaritems(int page) {
     ),
     InkWell(
       onTap: () {
-        homeBottomNavNotifier.setPage(2);
+        //homeBottomNavNotifier.setPage(2);
+        _launchUrl();
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -157,4 +159,12 @@ List<Widget> bottomnavbaritems(int page) {
       ),
     )
   ];
+}
+
+final Uri _url = Uri.parse('https://flutter.dev');
+
+Future<void> _launchUrl() async {
+  if (!await launchUrl(_url)) {
+    throw Exception('Could not launch $_url');
+  }
 }
