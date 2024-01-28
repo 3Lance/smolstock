@@ -1,4 +1,0 @@
-feed_service_url: "http://127.0.0.1:1234"
-forecast_service_url: "http://127.0.0.1:1235"
-auth_service_url: "http://127.0.0.1:1236"
-secret_key: "your_secret_key"
